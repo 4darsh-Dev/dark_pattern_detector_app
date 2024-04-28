@@ -99,8 +99,17 @@ def main():
         
 
 
-        # Add footer
-        st.markdown('<p style="text-align:center;">Made with ❤️ by <a href="https://www.adarshmaurya.onionreads.com">Adarsh Maurya</a></p>', unsafe_allow_html=True)
+    # Add footer
+    st.markdown('<p style="text-align:center;">Made with ❤️ by <a href="https://www.adarshmaurya.onionreads.com">Adarsh Maurya</a></p>', unsafe_allow_html=True)
+
+    # Add page visit count
+    page_visits = st.session_state.get('page_visits', 0)
+    page_visits += 1
+    st.session_state['page_visits'] = page_visits
+
+    # Display page visit count
+    st.markdown(f'<p style="text-align:center;">Page Visits: {page_visits}</p>', unsafe_allow_html=True)
+
 
 # Run the app
 if __name__ == "__main__":
