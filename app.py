@@ -11,7 +11,7 @@ label_dict = {"Urgency": 0, "Not Dark Pattern": 1, "Scarcity": 2, "Misdirection"
 model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=len(label_dict))
 
 # Load fine-tuned weights
-fine_tuned_model_path = r"models\finetuned_BERT_epoch_5.model"
+fine_tuned_model_path = "models/finetuned_BERT_5k_epoch_5.model"
 model.load_state_dict(torch.load(fine_tuned_model_path, map_location=torch.device('cpu')))
 
 # Preprocess the new text
@@ -103,12 +103,17 @@ def main():
     st.markdown('<p style="text-align:center;">Made with ❤️ by <a href="https://www.adarshmaurya.onionreads.com">Adarsh Maurya</a></p>', unsafe_allow_html=True)
 
     # Add page visit count
-    page_visits = st.session_state.get('page_visits', 0)
-    page_visits += 1
-    st.session_state['page_visits'] = page_visits
+    with open("assets/counter.txt", "r") as f:
+        pVisit = int(f.read())
+
+    pVisit += 1
+
+    with open("assets/counter.txt", "w") as f:
+        f.write(str(pVisit))
+
 
     # Display page visit count
-    st.markdown(f'<p style="text-align:center;">Page Visits: {page_visits}</p>', unsafe_allow_html=True)
+    st.markdown(f'<p style="text-align:center;">Page Visits: {pVisit}</p>', unsafe_allow_html=True)
 
 
 # Run the app
